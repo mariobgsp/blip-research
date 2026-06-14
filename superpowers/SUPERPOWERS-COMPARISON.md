@@ -842,3 +842,6 @@ The optimal approach depends on task complexity:
 - **Quality-critical code**: Superpowers' review process is valuable
 
 **Recommendation**: Use Superpowers for production features and complex multi-step tasks. Skip it for quick prototypes, simple fixes, and context-constrained sessions.
+
+opencode -s ses_13a1f4e0bffe24lbLT1u7WmOXB
+opencode -s ses_13a1c9ef3ffeWEd3aruK2iQpLC
