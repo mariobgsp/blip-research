@@ -31,6 +31,32 @@ More AI coding tools to evaluate:
 - [ ] Cline
 - [ ] Continue.dev
 
+## Current Focus: Entire CLI
+
+[Entire CLI](https://docs.entire.io) is a session tracking and checkpoint system for AI coding agents. It records every interaction and creates persistent checkpoints tied to git commits.
+
+### Analysis Documents
+
+| Document | Description |
+|----------|-------------|
+| [`ENTIRE-CLI-GUIDE.md`](ENTIRE-CLI-GUIDE.md) | How entire-cli works, setup, commands, real test results, review |
+| [`physics-phenomena-test-results.md`](physics-phenomena-test-results.md) | Raw output from doctor, status, sessions, checkpoints |
+
+### Key Findings
+
+- **Session tracking**: All 4 sessions captured automatically (~24.6M tokens total)
+- **Checkpoint creation**: 3 checkpoints tied to git commits with full transcripts
+- **Local features work**: doctor, status, session list, checkpoint list, checkpoint explain - no auth needed
+- **Cloud features need auth**: recap, search, dispatch, review require `entire login`
+- **Critical bug found**: React 19 StrictMode `useMemo` double-call caused slider changes to modify wrong sim instance
+
+### Test Results
+
+Tested on `physics-phenomena` repo with `feat/interactive-controls-and-slider-fix` branch:
+- 4 commits, 34 files changed, +2397/-312 lines
+- ~24.6M tokens across 4 sessions
+- 98% of tokens spent debugging React StrictMode bug
+
 ## Model Used
 
 All analysis performed with `opencode/mimo-v2.5-free` (200K context, 32K output, $0 free tier).
