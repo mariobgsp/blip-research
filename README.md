@@ -20,17 +20,6 @@ Research and analysis of AI coding agent tools and methodologies.
 - **Model constraint**: Free tier model (200K context) causes overflow with Superpowers' subagent workflow
 - **Recommendation**: Use paid model (Claude Sonnet 4 or Gemini 2.5 Pro) for Superpowers sessions
 
-## Planned Research
-
-More AI coding tools to evaluate:
-
-- [ ] Aider
-- [ ] Cursor
-- [ ] Windsurf
-- [ ] GitHub Copilot
-- [ ] Cline
-- [ ] Continue.dev
-
 ## Current Focus: Entire CLI
 
 [Entire CLI](https://docs.entire.io) is a session tracking and checkpoint system for AI coding agents. It records every interaction and creates persistent checkpoints tied to git commits.
