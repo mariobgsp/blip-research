@@ -205,3 +205,154 @@ This was the initial "understand this project" session that kicked off the entir
 2. Configure `--summarize-provider` for local summary generation
 3. Consider running `entire login` for cloud features (recap, dispatch)
 4. Use `entire checkpoint search` for semantic search across sessions
+
+---
+
+## Session 2: Adding 4 New Physics Phenomena (2026-06-25)
+
+**Date**: 2026-06-25
+**Repo**: `/home/mariobgsp/Projects/physics-phenomena`
+**Branch**: `main`
+**Agent**: OpenCode (mimo-v2.5-free)
+
+### Doctor Results
+
+```
+$ entire doctor
+✓ Metadata branches: OK
+
+No stuck sessions found.
+```
+
+### Status
+
+```
+$ entire status
+● Enabled · manual-commit · branch main
+  Agents · OpenCode
+
+OpenCode (mimo-v2.5-free) · ses_101489baeffeXa9Oq42lP7CvRm
+> "run this app"
+started 19m ago · active now · tokens 5496.4k
+
+1 session
+```
+
+### Session List
+
+| Session | Agent | Model | Tokens | Status | Checkpoint |
+|---------|-------|-------|--------|--------|------------|
+| `ses_101489baeffeXa9Oq42lP7CvRm` | OpenCode | mimo-v2.5-free | 5,496.4k | active | `3915b4c04f6d` |
+
+### Checkpoints
+
+```
+$ entire checkpoint list
+  branch       main
+  checkpoints  9
+
+● 3915b4c04f6d  "run this app"
+  06-25 19:36 (7b364be) chore: restore config files for lint/build
+
+● 201a540512c7  "run this app"
+  06-25 19:35 (b7233a8) feat: add heat engine simulation
+
+● f988eeccfedf  "run this app"
+  06-25 19:33 (00733cd) feat: add Carnot cycle simulation
+
+● 754e2f13fb44  "run this app"
+  06-25 19:32 (a8fe0bb) feat: add quantum tunneling simulation
+
+● e8aab48ad584  "run this app"
+  06-25 19:31 (4dc9e1d) feat: add Schrödinger wave equation simulation
+
+● 34403c14b878  "run this app"
+  06-25 19:27 (bd31997) docs: add implementation plan for 4 new physics phenomena
+
+● c03cf1d4a64c  "run this app"
+  06-25 19:25 (9def220) docs: add design spec for 4 new physics phenomena
+```
+
+### Checkpoint Explain (3915b4c04f6d)
+
+```
+$ entire checkpoint explain 3915b4c04f6d
+
+● Checkpoint 3915b4c04f6d
+  session  ses_101489baeffeXa9Oq42lP7CvRm
+  created  2026-06-25 12:36:33
+  author   mariobgsp <mariobgsp@example.com>
+  tokens   5496.4k
+  commits  7b364be chore: restore config files for lint/build
+```
+
+### Labs Features Tested
+
+#### `entire blame`
+
+```
+$ entire blame src/simulations/schrodinger.ts
+
+  src/simulations/schrodinger.ts
+
+  Line  Tag   Agent   Author  Checkpoint    Content
+  ──────────────────────────────────────────────────
+     1  [AI]  OpenCo  mariob  e8aab48ad584  export const ...
+     2  [AI]  OpenCo  mariob  e8aab48ad584    const cfg = {
+     ...
+   Summary: AI: 179 (100%) · Human: 0 (0%) · Mixed: 0 (0%)
+```
+
+#### `entire why`
+
+```
+$ entire why src/simulations/schrodinger.ts:1
+
+  Line 1 in src/simulations/schrodinger.ts
+  export const schrodingerSimulation = () => {
+
+  [AI] by OpenCode · mimo-v2.5-free · checkpoint e8aab48ad584 · session ses_1014 · commit 4dc9e1d2
+  Prompt: "run this app"
+```
+
+### Commits Made
+
+| Commit | Hash | Description |
+|--------|------|-------------|
+| 1 | `4dc9e1d` | feat: add Schrödinger wave equation simulation |
+| 2 | `a8fe0bb` | feat: add quantum tunneling simulation |
+| 3 | `00733cd` | feat: add Carnot cycle simulation |
+| 4 | `b7233a8` | feat: add heat engine simulation |
+| 5 | `7b364be` | chore: restore config files for lint/build |
+
+### Files Created/Modified
+
+**New files**:
+- `src/simulations/schrodinger.ts` - Schrödinger wave equation simulation
+- `src/simulations/tunneling.ts` - Quantum tunneling simulation
+- `src/simulations/carnot.ts` - Carnot cycle simulation
+- `src/simulations/heat_engine.ts` - Heat engine simulation
+
+**Modified files**:
+- `src/data/phenomena.ts` - Added 4 new phenomenon definitions
+- `src/simulations/index.ts` - Added imports and registrations
+- `tsconfig.app.json` - Restored from commit
+- `tsconfig.node.json` - Restored from commit
+
+### Token Efficiency
+
+| Metric | Value |
+|--------|-------|
+| Total tokens | 5.5M |
+| Sessions | 1 |
+| Checkpoints | 7 |
+| Features added | 4 simulations |
+| Time | ~20 minutes |
+
+### What Worked Well
+
+1. **Labs features** - `entire blame` and `entire why` work without auth
+2. **Granular checkpoints** - Each commit gets its own checkpoint
+3. **Detailed transcripts** - Full tool calls captured in checkpoint explain
+4. **No stuck sessions** - Doctor reports clean state
+5. **Branch isolation** - Checkpoints on separate branch

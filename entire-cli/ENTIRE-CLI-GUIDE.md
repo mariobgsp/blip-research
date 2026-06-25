@@ -540,16 +540,43 @@ useEffect(() => {
 
 ---
 
-## Advanced Features (not tested, auth required)
+## Labs Features (Experimental)
 
 | Command | What it does |
 |---------|--------------|
+| `entire blame <file>` | Shows which lines came from AI checkpoints (like git blame for AI) |
+| `entire why <file>:<line>` | Traces a line back to the prompt that created it |
 | `entire review` | Run review skills against current branch |
 | `entire investigate` | Multi-agent investigation |
 | `entire org` | Manage organizations |
 | `entire project` | Manage projects |
 | `entire repo` | Manage repositories |
 | `entire grant` | Manage access grants |
+
+### Real Test: `entire blame` and `entire why`
+
+```
+$ entire blame src/simulations/schrodinger.ts
+
+  src/simulations/schrodinger.ts
+
+  Line  Tag   Agent   Author  Checkpoint    Content
+  ──────────────────────────────────────────────────
+     1  [AI]  OpenCo  mariob  e8aab48ad584  export const ...
+     2  [AI]  OpenCo  mariob  e8aab48ad584    const cfg = {
+     ...
+   Summary: AI: 179 (100%) · Human: 0 (0%) · Mixed: 0 (0%)
+
+$ entire why src/simulations/schrodinger.ts:1
+
+  Line 1 in src/simulations/schrodinger.ts
+  export const schrodingerSimulation = () => {
+
+  [AI] by OpenCode · mimo-v2.5-free · checkpoint e8aab48ad584 · session ses_1014 · commit 4dc9e1d2
+  Prompt: "run this app"
+```
+
+**Key insight**: `entire blame` shows 100% AI-generated code for new simulation files, while `entire why` traces any line back to the exact prompt that created it.
 
 ## Troubleshooting
 
@@ -573,3 +600,87 @@ useEffect(() => {
 2. ✅ Ran doctor, status, session list, checkpoint list, checkpoint explain
 3. ✅ Documented results in `ENTIRE-CLI-GUIDE.md` and `physics-phenomena-test-results.md`
 4. ✅ Ran manual review of the feature branch (what worked, what didn't, code quality, token efficiency)
+
+---
+
+## Session 2: Adding 4 New Physics Phenomena (2026-06-25)
+
+### What Happened
+
+Added 4 new interactive physics simulations:
+1. **Schrödinger Wave Equation** (Modern Physics) - Infinite potential well with wave functions
+2. **Quantum Tunneling** (Modern Physics) - Wave packet passing through barrier
+3. **Carnot Cycle** (Thermodynamics) - Animated P-V diagram
+4. **Heat Engine** (Thermodynamics) - Piston-cylinder with flywheel
+
+### Entire Tracking Results
+
+```
+$ entire status
+● Enabled · manual-commit · branch main
+  Agents · OpenCode
+
+OpenCode (mimo-v2.5-free) · ses_101489baeffeXa9Oq42lP7CvRm
+> "run this app"
+started 19m ago · active now · tokens 5496.4k
+
+1 session
+```
+
+### Checkpoints Created
+
+```
+$ entire checkpoint list
+  branch       main
+  checkpoints  9
+
+● 3915b4c04f6d  "run this app"
+  06-25 19:36 (7b364be) chore: restore config files for lint/build
+
+● 201a540512c7  "run this app"
+  06-25 19:35 (b7233a8) feat: add heat engine simulation
+
+● f988eeccfedf  "run this app"
+  06-25 19:33 (00733cd) feat: add Carnot cycle simulation
+
+● 754e2f13fb44  "run this app"
+  06-25 19:32 (a8fe0bb) feat: add quantum tunneling simulation
+
+● e8aab48ad584  "run this app"
+  06-25 19:31 (4dc9e1d) feat: add Schrödinger wave equation simulation
+```
+
+### Key Features Used
+
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Session tracking | ✅ Works | Session `ses_101489ba` captured automatically |
+| Checkpoint creation | ✅ Works | 5 checkpoints tied to commits |
+| Token tracking | ✅ Works | 5.5M tokens used |
+| `entire blame` | ✅ Works | Shows 100% AI-generated code |
+| `entire why` | ✅ Works | Traces lines to prompts |
+| `entire doctor` | ✅ Works | No stuck sessions |
+| `entire checkpoint explain` | ✅ Works | Full transcript available |
+
+### Commits Made
+
+| Commit | Description |
+|--------|-------------|
+| `4dc9e1d` | feat: add Schrödinger wave equation simulation |
+| `a8fe0bb` | feat: add quantum tunneling simulation |
+| `00733cd` | feat: add Carnot cycle simulation |
+| `b7233a8` | feat: add heat engine simulation |
+| `7b364be` | chore: restore config files for lint/build |
+
+### Token Efficiency
+
+- **Total tokens**: 5.5M across 1 session
+- **Features added**: 4 new physics simulations with controls
+- **Time**: ~20 minutes
+
+### Lessons Learned
+
+1. **Labs features work locally** - `entire blame` and `entire why` don't require auth
+2. **Checkpoints are granular** - Each commit gets its own checkpoint
+3. **Transcripts are detailed** - Full tool calls and responses captured
+4. **Branch isolation works** - Checkpoints on separate branch don't pollute working tree
